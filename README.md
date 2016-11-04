@@ -17,8 +17,8 @@ Usually triggers about 5 minutes before an email is sent about the same upload
 **Setup:**
 - Create a webhook on Discord (edit a text channel > Webhooks > Create Webhook), and copy the webhook URL
 - Edit ytnotify.php:
-  * Change YOUR_WEBHOOK_URL to your webhook URL
   * Change YOUR_CHANNEL_ID to your YouTube channel ID (more info: https://developers.google.com/youtube/v3/guides/working_with_channel_ids)
+  * Change YOUR_WEBHOOK_URL to your webhook URL
 - Upload ytnotify.php to a public location on your webserver
 - Edit ytnotify_subscribe.sh/php:
   * Change YOUR_CHANNEL_ID to your YouTube channel ID
