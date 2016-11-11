@@ -1,4 +1,4 @@
-<?
+<?php
 
 /// ~ Change these values! ~ ///
 
@@ -25,9 +25,12 @@ curl_setopt_array($curl, array(
         'hub.callback' => CALLBACKURL,
         'hub.secret' => SECRET,
         'hub.verify' => 'sync'
-    )
+    ),
+    CURLOPT_RETURNTRANSFER => TRUE
 ));
 $response = curl_exec($curl);
 curl_close($curl);
+
+echo $response;
 
 ?>
