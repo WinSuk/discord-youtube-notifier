@@ -18,10 +18,10 @@ Usually triggers about 5 minutes before an email is sent about the same upload
 - Create a webhook on Discord (edit a text channel > Webhooks > Create Webhook), and copy the webhook URL
 - Edit ytnotify.php with a text editor:
   * Change REPLACE_WITH_CHANNEL_ID to your YouTube channel ID (more info: https://developers.google.com/youtube/v3/guides/working_with_channel_ids)
-  * Change REPLACE_WITH_UNIQUE_SECRET to your own unique secret - If you aren't sure what to put, think of it like a password
+  * Change REPLACE_WITH_UNIQUE_SECRET to your own unique secret - If you aren't sure what to put, grab something from here: https://www.randomlists.com/string
   * Change REPLACE_WITH_WEBHOOK_URL to your Discord webhook URL
 - Upload ytnotify.php to a public location on your webserver
-- Edit ytnotify_subscribe.sh/php:
+- Edit ytnotify_subscribe.sh/php with a text editor:
   * Change REPLACE_WITH_CHANNEL_ID to your YouTube channel ID
   * Change REPLACE_WITH_CALLBACK_URL to the public URL of ytnotify.php (including http[s]://)
   * Change REPLACE_WITH_UNIQUE_SECRET to the same secret set in ytnotify.php
