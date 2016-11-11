@@ -5,6 +5,9 @@
 // YouTube channel ID
 const CHANNELID = "REPLACE_WITH_CHANNEL_ID";
 
+// Secret - must match ytnotify_subscribe script; should be reasonably hard to guess
+const SECRET = "REPLACE_WITH_UNIQUE_SECRET";
+
 // Discord webhook URL
 const WEBHOOKURL = "REPLACE_WITH_WEBHOOK_URL";
 
@@ -27,12 +30,22 @@ if (isset($challenge)) {
 // File to save the last publish time to
 $LATEST_FILE = "ytnotify.latest";
 
-// Check for the correct useragent
-if ($_SERVER['HTTP_USER_AGENT'] != "FeedFetcher-Google; (+http://www.google.com/feedfetcher.html)") {
+$data = file_get_contents("php://input");
+
+// Verify signature
+$sig = $_SERVER['HTTP_X_HUB_SIGNATURE'];
+if ($sig && strpos($sig, "sha1=") === 0) {
+    // Trim sha1= from start
+    $sig = substr($sig, 5);
+    // Compute what the signature should be
+    $goodsig = hash_hmac('sha1', $data, SECRET);
+    // Finally, die if they don't match
+    if ($sig !== $goodsig) {
+        die();
+    }
+} else {
     die();
 }
-
-$data = file_get_contents("php://input");
 
 $xml = simplexml_load_string($data) or die("Error: Cannot create object");
 
