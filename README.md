@@ -16,13 +16,13 @@ Usually triggers about 5 minutes before an email is sent about the same upload
 
 **Setup:**
 - Create a webhook on Discord (edit a text channel > Webhooks > Create Webhook), and copy the webhook URL
-- Edit ytnotify.php:
-  * Change YOUR_CHANNEL_ID to your YouTube channel ID (more info: https://developers.google.com/youtube/v3/guides/working_with_channel_ids)
-  * Change YOUR_WEBHOOK_URL to your webhook URL
+- Edit ytnotify.php with a text editor:
+  * Change REPLACE_WITH_CHANNEL_ID to your YouTube channel ID (more info: https://developers.google.com/youtube/v3/guides/working_with_channel_ids)
+  * Change REPLACE_WITH_WEBHOOK_URL to your Discord webhook URL
 - Upload ytnotify.php to a public location on your webserver
 - Edit ytnotify_subscribe.sh/php:
-  * Change YOUR_CHANNEL_ID to your YouTube channel ID
-  * Change YOUR_CALLBACK_URL to the public URL of ytnotify.php (including http[s]://)
+  * Change REPLACE_WITH_CHANNEL_ID to your YouTube channel ID
+  * Change REPLACE_WITH_CALLBACK_URL to the public URL of ytnotify.php (including http[s]://)
 
 ytnotify_subscribe needs to be run regularly - the subscription times out after a set time (432000 seconds/5 days last I checked).
 This is best done with a cronjob on the server - I have mine run at 5am every Monday and Friday.

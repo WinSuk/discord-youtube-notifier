@@ -1,9 +1,21 @@
 <?php
 
+/// ~ Change these values! ~ ///
+
+// YouTube channel ID
+const CHANNELID = "REPLACE_WITH_CHANNEL_ID";
+
+// Discord webhook URL
+const WEBHOOKURL = "REPLACE_WITH_WEBHOOK_URL";
+
+///   ///   ///  ///   ///   ///
+
+
+
 // Respond to verification at time of subscribe
 $challenge = $_GET['hub_challenge'];
 if (isset($challenge)) {
-    if ($_GET['hub_topic'] == "https://www.youtube.com/xml/feeds/videos.xml?channel_id=YOUR_CHANNEL_ID") {
+    if ($_GET['hub_topic'] == "https://www.youtube.com/xml/feeds/videos.xml?channel_id=" . CHANNELID) {
         // Topic is correct, die with challenge reply
         die($challenge);
     } else {
@@ -53,7 +65,7 @@ if ($notify && $link != "") {
     // cURL away!
     $curl = curl_init();
     curl_setopt_array($curl, array(
-        CURLOPT_URL => "YOUR_WEBHOOK_URL",
+        CURLOPT_URL => WEBHOOKURL,
         CURLOPT_HTTPHEADER => array(
             'Content-Type: application/json;charset=UTF-8'
         ),
