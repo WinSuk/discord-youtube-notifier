@@ -1,10 +1,24 @@
 ## YouTube upload notification via Discord webhook
 
-**Demo:**
+**Notifies for:**
 
-![Demo Image](https://raw.githubusercontent.com/WinSuk/discord-ytupload-notifier/master/demo.png)
+- Standard video upload:
 
-Usually triggers about 5 minutes before an email is sent about the same upload
+![Standard video upload](https://raw.githubusercontent.com/WinSuk/discord-ytupload-notifier/master/demo.png)
+
+
+- Livestreams starting (option for gaming.youtube.com link, enabled by default)
+
+![Livestream starting](https://raw.githubusercontent.com/WinSuk/discord-ytupload-notifier/master/demolive.png)
+
+
+- Livestreams that have just ended, with a link to watch (option to disable)
+
+![Livestream finished](https://raw.githubusercontent.com/WinSuk/discord-ytupload-notifier/master/demolivefinished.png)
+
+
+Usually is faster than an email from YouTube of the same video
+
 
 
 **Requirements:**
@@ -15,8 +29,10 @@ Usually triggers about 5 minutes before an email is sent about the same upload
 
 
 **Setup:**
-- Create a webhook on Discord (edit a text channel > Webhooks > Create Webhook), and copy the webhook URL
+- Create a webhook on Discord (edit a text channel > Webhooks > Create Webhook)
+- Follow steps 1 - 3 under "Before you start" on https://developers.google.com/youtube/v3/getting-started to create a server API key
 - Edit ytnotify.php with a text editor:
+  * Change REPLACE_WITH_API_KEY to your server API key created above
   * Change REPLACE_WITH_CHANNEL_ID to your YouTube channel ID (more info: https://developers.google.com/youtube/v3/guides/working_with_channel_ids)
   * Change REPLACE_WITH_UNIQUE_SECRET to your own unique secret - If you aren't sure what to put, grab something from here: https://www.randomlists.com/string
   * Change REPLACE_WITH_WEBHOOK_URL to your Discord webhook URL
@@ -33,7 +49,4 @@ Since it falls back to notifying when there's no last known publish date, the fi
 
 
 **Known issues:**
-- No notification when a livestream is started. I'm not sure if YouTube even has a way of doing this - I couldn't find anything. However:
-- When a livestream ends, the video of it gets pushed as a new upload, even though the video is unlisted.
-  * I'm not sure if this always happens, or if it's with a specific livestreaming setup as I haven't really tested it.
-- Keeping track of the last publish time with a file is probably not the best
+- Keeping track of the last publish time with a file is probably not the best, and should be changed eventually...

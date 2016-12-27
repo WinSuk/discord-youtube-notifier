@@ -2,6 +2,9 @@
 
 /// ~ Change these values! ~ ///
 
+// YouTube API key
+const APIKEY = "REPLACE_WITH_API_KEY";
+
 // YouTube channel ID
 const CHANNELID = "REPLACE_WITH_CHANNEL_ID";
 
@@ -12,6 +15,19 @@ const SECRET = "REPLACE_WITH_UNIQUE_SECRET";
 const WEBHOOKURL = "REPLACE_WITH_WEBHOOK_URL";
 
 ///   ///   ///  ///   ///   ///
+
+
+
+/// Optionally change these values ///
+
+// Use a gaming.youtube.com link for livestreams instead of normal youtube
+const PREFER_GAMING_LINK = true;
+
+// Send a notification for livestreams that have just ended, with a link to watch
+const NOTIFY_COMPLETED_LIVESTREAMS = true;
+
+///   ///   ///  ///   ///   ///
+
 
 
 
@@ -48,19 +64,55 @@ if ($sig && strpos($sig, "sha1=") === 0) {
 }
 
 $xml = simplexml_load_string($data) or die("Error: Cannot create object");
+$id = $xml->entry->children("http://www.youtube.com/xml/schemas/2015")->videoId;
 
-$link = $xml->entry->link['href'];
-$published = $xml->entry->published;
-$latest = file_get_contents($LATEST_FILE);
+// First, determine if this is a livestream or not, and the status of the livestream
+$url = "https://www.googleapis.com/youtube/v3/videos?part=liveStreamingDetails&id=$id&maxResults=1&key=" . APIKEY;
+$json = json_decode(file_get_contents($url), true);
+$stream = $json['items'][0]['liveStreamingDetails'];
+$isFinishedLiveStream = false;
+$isInProgressLiveStream = false;
+if ($stream != null) {
+    if ($stream['actualStartTime'] != null) {
+        // This is/was a livestream
+        if ($stream['actualEndTime'] != null) {
+            // This was a livestream that is now finished
+            $isFinishedLiveStream = true;
+        } else {
+            // This is a livestream that is currently LIVE
+            $isInProgressLiveStream = true;
+        }
+    } else {
+        // This is an upcoming livestream that hasn't gone live yet.
+        // It can be very dangerous: when a stream ends, a new ID will be
+        // generated for the next stream, with the publish time set to NOW.
+        // Discard completely.
+        die();
+    }
+}
+$isLiveStream = ($isFinishedLiveStream || $isInProgressLiveStream);
+
+
+$inputdate = "";
+if ($isInProgressLiveStream) {
+    $inputdate = $stream['actualStartTime'];
+} else if ($isFinishedLiveStream) {
+    if (NOTIFY_COMPLETED_LIVESTREAMS) {
+        $inputdate = $stream['actualEndTime'];
+    }
+} else {
+    $inputdate = $xml->entry->published;
+}
 
 $notify = false;
-if ($published != "") {
+if ($inputdate != "") {
+    $latest = file_get_contents($LATEST_FILE);
     if ($latest == "") {
         // No last known video, so send the notification and hope for the best D:
         $notify = true;
     } else {
         // Test dates
-        $pubdate = date_create($published);
+        $pubdate = date_create($inputdate);
         $latestdate = date_create($latest);
         if ($pubdate > $latestdate) {
             // It's newer, notify!
@@ -69,10 +121,25 @@ if ($published != "") {
     }
 }
 
-if ($notify && $link != "") {
+if ($notify) {
     // Prepare the POST input
+    $msg = "";
+    if ($isInProgressLiveStream) {
+        $msg = "\xf0\x9f\x94\xb4 **Livestream started!** \xf0\x9f\x94\xb4";
+    } else if ($isFinishedLiveStream) {
+        $msg = "A livestream just finished and is now available as a video:";
+    } else {
+        $msg = "\xf0\x9f\x8e\x9e **NEW VIDEO!** \xf0\x9f\x8e\x9e";
+    }
+
+    if ($isInProgressLiveStream && PREFER_GAMING_LINK) {
+        $msg .= "\nhttps://gaming.youtube.com/watch?v=$id";
+    } else {
+        $msg .= "\nhttps://www.youtube.com/watch?v=$id";
+    }
+
     $data = json_encode(array(
-        'content' => "\xf0\x9f\x8e\x9e **NEW VIDEO!** \xf0\x9f\x8e\x9e\n$link"
+        'content' => $msg
     ));
 
     // cURL away!
@@ -88,9 +155,9 @@ if ($notify && $link != "") {
     ));
     $response = curl_exec($curl);
     curl_close($curl);
-    
-    // Save latest to file
-    file_put_contents($LATEST_FILE, $published);
+
+    // Save latest date to file
+    file_put_contents($LATEST_FILE, $inputdate);
 }
 
 ?>
