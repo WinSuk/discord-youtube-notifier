@@ -4,17 +4,17 @@
 
 - Standard video upload:
 
-![Standard video upload](https://raw.githubusercontent.com/WinSuk/discord-ytupload-notifier/master/demo.png)
+![Standard video upload](demo.png)
 
 
-- Livestreams starting (option for gaming.youtube.com link, enabled by default)
+- Livestreams starting (option for gaming.youtube.com link, enabled by default):
 
-![Livestream starting](https://raw.githubusercontent.com/WinSuk/discord-ytupload-notifier/master/demolive.png)
+![Livestream starting](demolive.png)
 
 
-- Livestreams that have just ended, with a link to watch (option to disable)
+- Livestreams that have just ended, with a link to watch (option to disable):
 
-![Livestream finished](https://raw.githubusercontent.com/WinSuk/discord-ytupload-notifier/master/demolivefinished.png)
+![Livestream finished](demolivefinished.png)
 
 
 Usually is faster than an email from YouTube of the same video
