@@ -1,4 +1,4 @@
-## YouTube upload notification via Discord webhook
+## YouTube upload/livestream notification via Discord webhook
 
 **Notifies for:**
 
