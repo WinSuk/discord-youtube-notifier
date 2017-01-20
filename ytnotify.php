@@ -127,7 +127,7 @@ if ($notify) {
     if ($isInProgressLiveStream) {
         $msg = "\xf0\x9f\x94\xb4 **Livestream started!** \xf0\x9f\x94\xb4";
     } else if ($isFinishedLiveStream) {
-        $msg = "A livestream just finished and is now available as a video:";
+        $msg = "A finished livestream is now available as a video:";
     } else {
         $msg = "\xf0\x9f\x8e\x9e **NEW VIDEO!** \xf0\x9f\x8e\x9e";
     }
