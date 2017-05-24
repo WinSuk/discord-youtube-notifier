@@ -8,7 +8,7 @@ const CHANNELID = "REPLACE_WITH_CHANNEL_ID";
 // Public callback URL
 const CALLBACKURL = "REPLACE_WITH_CALLBACK_URL";
 
-// Secret - must match ytnotify_subscribe script; should be reasonably hard to guess
+// Secret - must match ytnotify.php; should be reasonably hard to guess
 const SECRET = "REPLACE_WITH_UNIQUE_SECRET";
 
 ///   ///   ///  ///   ///   ///
