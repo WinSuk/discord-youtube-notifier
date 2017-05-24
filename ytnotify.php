@@ -32,11 +32,10 @@ const NOTIFY_COMPLETED_LIVESTREAMS = true;
 
 
 // Respond to verification at time of subscribe
-$challenge = $_GET['hub_challenge'];
-if (isset($challenge)) {
+if (array_key_exists('hub_challenge', $_GET)) {
     if ($_GET['hub_topic'] == "https://www.youtube.com/xml/feeds/videos.xml?channel_id=" . CHANNELID) {
         // Topic is correct, die with challenge reply
-        die($challenge);
+        die($_GET['hub_challenge']);
     } else {
         // We did not request this topic, die with no data
         die();
@@ -69,10 +68,11 @@ $id = $xml->entry->children("http://www.youtube.com/xml/schemas/2015")->videoId;
 // First, determine if this is a livestream or not, and the status of the livestream
 $url = "https://www.googleapis.com/youtube/v3/videos?part=liveStreamingDetails&id=$id&maxResults=1&key=" . APIKEY;
 $json = json_decode(file_get_contents($url), true);
-$stream = $json['items'][0]['liveStreamingDetails'];
+$item = $json['items'][0];
 $isFinishedLiveStream = false;
 $isInProgressLiveStream = false;
-if ($stream != null) {
+if (array_key_exists('liveStreamingDetails', $item)) {
+    $stream = $item['liveStreamingDetails'];
     if ($stream['actualStartTime'] != null) {
         // This is/was a livestream
         if ($stream['actualEndTime'] != null) {
