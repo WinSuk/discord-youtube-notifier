@@ -5,8 +5,9 @@
 // YouTube API key
 const APIKEY = "REPLACE_WITH_API_KEY";
 
-// YouTube channel ID
-const CHANNELID = "REPLACE_WITH_CHANNEL_ID";
+// YouTube channel ID(s)
+# Can be multiple channels - eg: `array("aaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbb")`
+const CHANNELIDS = array("REPLACE_WITH_CHANNEL_ID");
 
 // Secret - must match ytnotify_subscribe script; should be reasonably hard to guess
 const SECRET = "REPLACE_WITH_UNIQUE_SECRET";
@@ -33,13 +34,14 @@ const NOTIFY_COMPLETED_LIVESTREAMS = true;
 
 // Respond to verification at time of subscribe
 if (array_key_exists('hub_challenge', $_GET)) {
-    if ($_GET['hub_topic'] == "https://www.youtube.com/xml/feeds/videos.xml?channel_id=" . CHANNELID) {
-        // Topic is correct, die with challenge reply
-        die($_GET['hub_challenge']);
-    } else {
-        // We did not request this topic, die with no data
-        die();
+    foreach (CHANNELIDS as $chid) {
+        if ($_GET['hub_topic'] == "https://www.youtube.com/xml/feeds/videos.xml?channel_id=$chid") {
+            // Topic is correct, die with challenge reply
+            die($_GET['hub_challenge']);
+        }
     }
+    // We did not request this topic, die with no data
+    die();
 }
 
 // File to save the last publish time to
