@@ -6,7 +6,7 @@
 const APIKEY = "REPLACE_WITH_API_KEY";
 
 // YouTube channel ID(s)
-# Can be multiple channels - eg: `array("aaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbb")`
+// Can be multiple channels - eg: `array("aaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbb")`
 const CHANNELIDS = array("REPLACE_WITH_CHANNEL_ID");
 
 // Secret - must match ytnotify_subscribe script; should be reasonably hard to guess

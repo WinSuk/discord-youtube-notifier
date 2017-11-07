@@ -3,7 +3,7 @@
 /// ~ Change these values! ~ ///
 
 // YouTube channel ID(s)
-# Can be multiple channels - eg: `array("aaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbb")`
+// Can be multiple channels - eg: `array("aaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbb")`
 const CHANNELIDS = array("REPLACE_WITH_CHANNEL_ID");
 
 // Public callback URL
