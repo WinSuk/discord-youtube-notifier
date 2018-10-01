@@ -21,9 +21,6 @@ const WEBHOOKURL = "REPLACE_WITH_WEBHOOK_URL";
 
 /// Optionally change these values ///
 
-// Use a gaming.youtube.com link for livestreams instead of normal youtube
-const PREFER_GAMING_LINK = true;
-
 // Send a notification for livestreams that have just ended, with a link to watch
 const NOTIFY_COMPLETED_LIVESTREAMS = true;
 
@@ -134,9 +131,7 @@ if ($notify) {
         $msg = "\xf0\x9f\x8e\x9e **NEW VIDEO!** \xf0\x9f\x8e\x9e";
     }
 
-    if ($isInProgressLiveStream && PREFER_GAMING_LINK) {
-        $msg .= "\nhttps://gaming.youtube.com/watch?v=$id";
-    } else {
+    if ($isInProgressLiveStream) {
         $msg .= "\nhttps://www.youtube.com/watch?v=$id";
     }
 
