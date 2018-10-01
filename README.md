@@ -4,17 +4,10 @@
 
 - Standard video upload:
 
-![Standard video upload](demo.png)
-
-
-- Livestreams starting (option for gaming.youtube.com link, enabled by default):
-
-![Livestream starting](demolive.png)
+- Livestreams starting
 
 
 - Livestreams that have just ended, with a link to watch (option to disable):
-
-![Livestream finished](demolivefinished.png)
 
 
 Usually is faster than an email from YouTube of the same video
@@ -37,7 +30,7 @@ Usually is faster than an email from YouTube of the same video
   * Change REPLACE_WITH_UNIQUE_SECRET to your own unique secret - If you aren't sure what to put, grab something from here: https://www.randomlists.com/string
   * Change REPLACE_WITH_WEBHOOK_URL to your Discord webhook URL
 - Upload ytnotify.php to a public location on your webserver
-- Edit ytnotify_subscribe.sh/php with a text editor:
+- Edit ytnotify_subscribe.php with a text editor:
   * Change REPLACE_WITH_CHANNEL_ID to your YouTube channel ID
   * Change REPLACE_WITH_CALLBACK_URL to the public URL of ytnotify.php (including http[s]://)
   * Change REPLACE_WITH_UNIQUE_SECRET to the same secret set in ytnotify.php
