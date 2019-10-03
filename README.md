@@ -1,16 +1,10 @@
-## YouTube upload/livestream notification via Discord webhook
+## YouTube upload notification via Discord webhook
 
 **Notifies for:**
 
 - Standard video upload:
 
 ![Standard video upload](demo.png)
-
-
-- Livestreams starting (option for gaming.youtube.com link, enabled by default):
-
-![Livestream starting](demolive.png)
-
 
 - Livestreams that have just ended, with a link to watch (option to disable):
 
